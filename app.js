@@ -15,7 +15,7 @@ var intervalId = setInterval(() => {
         let lis = $('li')
         let count = 0
         for(let i=0; i<lis.length; i++) {
-            if(lis.eq(i).text().indexOf('2018-04-09') !== -1) {
+            if(lis.eq(i).text().indexOf('2018-01-26') !== -1) {
                 count++
             }
         }
