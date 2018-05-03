@@ -8,20 +8,25 @@ const bot = new tgbotapi(config.token, {
     polling: true
 })
 
+let count = 0
 var intervalId = setInterval(() => {
     let url = 'http://toi.csie.ntnu.edu.tw/'
     request.get(url, (err, res, body) => {
         let $ = cheerio.load(body, {decodeEntities: false})
-        let lis = $('li')
-        let count = 0
-        for(let i=0; i<lis.length; i++) {
-            if(lis.eq(i).text().indexOf('2018-01-26') !== -1) {
-                count++
-            }
-        }
-        if( count !== 1 ) {
-            bot.sendMessage(config.self_tgID, 'something happened, count: ' + count)
+        if( $('li').eq(6).text().indexOf('2018-04-09') === '-1' ) {
+            let msg = 'something happened.\n'
+            msg += $('li').eq(6).text().replace(/[\n\r]/g, '') + '\n'
+            msg += 'http://toi.csie.ntnu.edu.tw/' + $('li').eq(6).find('a').attr('href') + '\n'
+            msg += $('li').eq(7).text().replace(/[\n\r]/g, '') + '\n'
+            msg += 'http://toi.csie.ntnu.edu.tw/' + $('li').eq(7).find('a').attr('href') + '\n'
+
+            console.log(msg)
+            bot.sendMessage(config.self_tgID, msg)
             clearInterval(intervalId)
+        }
+        count++
+        if( count % 3600 === 0 ) {
+            bot.sendMessage(config.self_tgID, 'nothing happend.')
         }
     })
 }, 1000)
