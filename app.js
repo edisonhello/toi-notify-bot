@@ -13,8 +13,8 @@ var intervalId = setInterval(() => {
     let url = 'http://toi.csie.ntnu.edu.tw/'
     request.get(url, (err, res, body) => {
         let $ = cheerio.load(body, {decodeEntities: false})
-        console.log($('li').eq(8).text().indexOf('2018-04-09'))
-        if( $('li').eq(8).text().indexOf('2018-04-09') === -1 ) {
+        console.log($('li').eq(8).text().indexOf('2018-04-29'))
+        if( $('li').eq(8).text().indexOf('2018-04-29') === -1 ) {
             let msg = 'something happened.\n'
             msg += $('li').eq(6).text().replace(/[\n\r]/g, '') + '\n'
             msg += 'http://toi.csie.ntnu.edu.tw/' + $('li').eq(6).find('a').attr('href') + '\n'
